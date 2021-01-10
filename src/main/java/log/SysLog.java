@@ -16,7 +16,7 @@ public class SysLog {
 
     public static void initializeLogger() {
         checkDir();
-        bootTime = fileDtf.format(LocalDateTime.now();
+        bootTime = fileDtf.format(LocalDateTime.now());
         openLog("logs/" + bootTime + ".log");
     }
 
