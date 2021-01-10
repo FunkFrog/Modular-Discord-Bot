@@ -51,6 +51,14 @@ public class UserData {
         }
     }
 
+    public static ResultSet getDBRow(Long id) throws SQLException {
+        PreparedStatement statement = Database.database.prepareStatement("SELECT * FROM USERDATA WHERE ID = ?");
+        statement.setLong(1, id);
+        ResultSet resultSet = statement.executeQuery();
+        resultSet.next();
+        return resultSet;
+    }
+
     private static long getDBColumnAsLong(Long id, String colLabel) throws SQLException {
         PreparedStatement statement = Database.database.prepareStatement("SELECT * FROM USERDATA WHERE ID = ?");
         statement.setLong(1, id);
