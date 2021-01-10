@@ -3,7 +3,8 @@ package log;
 import util.Init;
 
 import java.io.File;
-import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -12,34 +13,39 @@ public class ServerLogger {
     private static final DateTimeFormatter fileDtf = DateTimeFormatter.ofPattern("yyyy-MM-dd_HH.mm.ss");
     private static final DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
-    private static void openLog(long serverID) {
-        File log = new File("/logs/serverlogs/" + SysLog.bootTime + "-" + serverID);
-        out("Opening log at " + dtf.format(LocalDateTime.now()) + ".", serverID);
-        out("-------- SERVER INFO --------", serverID);
-        out("SERVER ID: " + serverID, serverID);
-        out("SERVER NAME: " + Init.api.getServerById(serverID).get().getName(), serverID);
-        out("-------- LOG --------", serverID);
+    public static void initializeServerLoggers() {
+        Init.api.getServers().forEach(server -> {
+            ServerLogger.openLog(server.getId());
+            SysLog.out("Started log for server " + server.getId());
+        });
     }
 
-    private static void writeFile(String message, long serverID, String prefix) {
-        File log = new File("/logs/serverlogs/" + SysLog.bootTime + "-" + serverID);
+    public static void openLog(long serverID) {
+        File log = new File("logs/serverlogs/" + SysLog.bootTime + "-" + serverID + ".txt");
         try {
-            PrintWriter writer = new PrintWriter(log);
-            String formattedMessage = "[" + dtf.format(LocalDateTime.now()) + "] " + prefix + " " + message;
-            System.out.println(formattedMessage);
-            Init.botLog.sendMessage("**" + formattedMessage + "**");
-            writer.println(formattedMessage);
-            writer.flush();
-        } catch (FileNotFoundException e) {
-            SysLog.err("Could not log error for server " + serverID + ": " + message);
+            PrintWriter writer = new PrintWriter(new FileWriter(log, true));
+            writer.println("Opening log at " + fileDtf.format(LocalDateTime.now()));
+            writer.println("-- SERVER INFO");
+            writer.println("SERVER ID: " + serverID);
+            //TODO uncomment this when the discord side is working
+            //writer.println("SERVER NAME: " + Init.api.getServerById(serverID).get().getName());
+            writer.println("-- LOG");
+            writer.close();
+        } catch (IOException e) {
+            SysLog.err("Couldn't create log file for " + serverID);
+            e.printStackTrace();
         }
     }
 
-    public static void err(String message, long serverID) {
-        writeFile(message, serverID, "[ERROR]");
-    }
-
     public static void out(String message, long serverID) {
-        writeFile(message, serverID, "[INFO]");
+        try {
+            PrintWriter writer = new PrintWriter(new FileWriter("logs/serverlogs/" + SysLog.bootTime + "-" + serverID + ".txt", true));
+            String formattedMessage = "[" + dtf.format(LocalDateTime.now()) + "] [SERVER] [INFO] " + message;
+            System.out.println(formattedMessage);
+            writer.println(formattedMessage);
+            writer.flush();
+        } catch (Exception e) {
+            SysLog.err("Could not log message for server " + serverID + ": " + message);
+        }
     }
 }

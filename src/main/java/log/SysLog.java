@@ -27,16 +27,16 @@ public class SysLog {
             logsFolder.mkdir();
         }
         File serverLogsFolder = new File("logs/serverlogs/");
-        if (!logsFolder.exists()) {
+        if (!serverLogsFolder.exists()) {
             System.out.println("Server logs folder not found, creating...");
-            logsFolder.mkdir();
+            serverLogsFolder.mkdir();
         }
     }
 
     public static void err(String message) {
         String formattedMessage = "[" + dtf.format(LocalDateTime.now()) + "] [ERROR] " + message;
         System.out.println(formattedMessage);
-        Init.botLog.sendMessage("**" + formattedMessage + "**");
+        //Init.botLog.sendMessage("**" + formattedMessage + "**");
         writer.println(formattedMessage);
         writer.flush();
     }
@@ -44,7 +44,7 @@ public class SysLog {
     public static void wrn(String message) {
         String formattedMessage = "[" + dtf.format(LocalDateTime.now()) + "] [WARN] " + message;
         System.out.println(formattedMessage);
-        Init.botLog.sendMessage("**" + formattedMessage + "**");
+        //Init.botLog.sendMessage("**" + formattedMessage + "**");
         writer.println(formattedMessage);
         writer.flush();
     }
@@ -52,7 +52,7 @@ public class SysLog {
     public static void out(String message) {
         String formattedMessage = "[" + dtf.format(LocalDateTime.now()) + "] [INFO] " + message;
         System.out.println(formattedMessage);
-        Init.botLog.sendMessage(formattedMessage);
+        //Init.botLog.sendMessage(formattedMessage);
         writer.println(formattedMessage);
         writer.flush();
     }
