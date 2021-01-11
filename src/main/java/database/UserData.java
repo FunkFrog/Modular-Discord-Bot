@@ -30,7 +30,7 @@ public class UserData {
 
     }
 
-    public static void addUser(Long id) throws SQLException {
+    public static void addUser(long id) throws SQLException {
         PreparedStatement statement = Database.database.prepareStatement("INSERT INTO USERDATA " +
                 "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
         User user = Init.api.getCachedUserById(id).orElseThrow(NullPointerException::new);
@@ -51,7 +51,7 @@ public class UserData {
         }
     }
 
-    public static ResultSet getDBRow(Long id) throws SQLException {
+    public static ResultSet getDBRow(long id) throws SQLException {
         PreparedStatement statement = Database.database.prepareStatement("SELECT * FROM USERDATA WHERE ID = ?");
         statement.setLong(1, id);
         ResultSet resultSet = statement.executeQuery();
@@ -59,7 +59,7 @@ public class UserData {
         return resultSet;
     }
 
-    private static long getDBColumnAsLong(Long id, String colLabel) throws SQLException {
+    private static long getDBColumnAsLong(long id, String colLabel) throws SQLException {
         PreparedStatement statement = Database.database.prepareStatement("SELECT * FROM USERDATA WHERE ID = ?");
         statement.setLong(1, id);
         ResultSet resultSet = statement.executeQuery();
@@ -67,7 +67,7 @@ public class UserData {
         return resultSet.getLong(colLabel);
     }
 
-    private static int getDBColumnAsInt(Long id, String colLabel) throws SQLException {
+    private static int getDBColumnAsInt(long id, String colLabel) throws SQLException {
         PreparedStatement statement = Database.database.prepareStatement("SELECT * FROM USERDATA WHERE ID = ?");
         statement.setLong(1, id);
         ResultSet resultSet = statement.executeQuery();
@@ -75,7 +75,7 @@ public class UserData {
         return resultSet.getInt(colLabel);
     }
 
-    private static String getDBColumnAsString(Long id, String colLabel) throws SQLException {
+    private static String getDBColumnAsString(long id, String colLabel) throws SQLException {
         PreparedStatement statement = Database.database.prepareStatement("SELECT * FROM USERDATA WHERE ID = ?");
         statement.setLong(1, id);
         ResultSet resultSet = statement.executeQuery();
@@ -83,7 +83,7 @@ public class UserData {
         return resultSet.getString(colLabel);
     }
 
-    private static boolean getDBColumnAsBool(Long id, String colLabel) throws SQLException {
+    private static boolean getDBColumnAsBool(long id, String colLabel) throws SQLException {
         PreparedStatement statement = Database.database.prepareStatement("SELECT * FROM USERDATA WHERE ID = ?");
         statement.setLong(1, id);
         ResultSet resultSet = statement.executeQuery();
@@ -91,90 +91,98 @@ public class UserData {
         return resultSet.getBoolean(colLabel);
     }
 
-    public static long getCredits(Long id) throws SQLException {
+    public static boolean getBlacklist(long id) throws SQLException {
+        return getDBColumnAsBool(id, "Blacklist");
+    }
+
+    public static long getCredits(long id) throws SQLException {
         return getDBColumnAsLong(id,"Credits");
     }
 
-    public static int getLevel(Long id) throws SQLException {
+    public static int getLevel(long id) throws SQLException {
         return getDBColumnAsInt(id, "Level");
     }
 
-    public static Long getXp(Long id) throws SQLException {
+    public static Long getXp(long id) throws SQLException {
         return getDBColumnAsLong(id, "XP");
     }
 
-    private static String getUsername(Long id) throws SQLException {
+    private static String getUsername(long id) throws SQLException {
         return getDBColumnAsString(id, "Username");
     }
 
-    public static boolean isBotAuth(Long id) throws SQLException {
+    public static boolean isBotAuth(long id) throws SQLException {
         return getDBColumnAsBool(id, "BotAuth");
     }
 
-    public static boolean userExists(Long id) throws SQLException {
+    public static boolean userExists(long id) throws SQLException {
         PreparedStatement statement = Database.database.prepareStatement("SELECT 1 FROM USERDATA WHERE ID = ?");
         statement.setLong(1, id);
         ResultSet resultSet = statement.executeQuery();
         return resultSet.next();
     }
 
-    private static void setDBColumnAsLong(Long id, String colLabel, Long value) throws SQLException {
+    private static void setDBColumnAsLong(long id, String colLabel, long value) throws SQLException {
         PreparedStatement statement = Database.database.prepareStatement("UPDATE USERDATA SET " + colLabel + " = ? WHERE ID = ?");
         statement.setLong(1, value);
         statement.setLong(2, id);
         statement.execute();
     }
 
-    private static void setDBColumnAsInt(Long id, String colLabel, int value) throws SQLException {
+    private static void setDBColumnAsInt(long id, String colLabel, int value) throws SQLException {
         PreparedStatement statement = Database.database.prepareStatement("UPDATE USERDATA SET " + colLabel + " = ? WHERE ID = ?");
         statement.setInt(1, value);
         statement.setLong(2, id);
         statement.execute();
     }
 
-    private static void setDBColumnAsString(Long id, String colLabel, String value) throws SQLException {
+    private static void setDBColumnAsString(long id, String colLabel, String value) throws SQLException {
         PreparedStatement statement = Database.database.prepareStatement("UPDATE USERDATA SET " + colLabel + " = ? WHERE ID = ?");
         statement.setString(1, value);
         statement.setLong(2, id);
         statement.execute();
     }
 
-    private static void setDBColumnAsBool(Long id, String colLabel, boolean value) throws SQLException {
+    private static void setDBColumnAsBool(long id, String colLabel, boolean value) throws SQLException {
         PreparedStatement statement = Database.database.prepareStatement("UPDATE USERDATA SET " + colLabel + " = ? WHERE ID = ?");
         statement.setBoolean(1, value);
         statement.setLong(2, id);
         statement.execute();
     }
 
-    public static void setCredits(Long id, long credits) throws SQLException {
+    public static void setBlacklist(long id, boolean blacklist) throws SQLException {
+        setDBColumnAsBool(id, "blacklist", blacklist);
+    }
+
+    public static void setCredits(long id, long credits) throws SQLException {
         setDBColumnAsLong(id, "Credits", credits);
     }
 
-    public static void setLevel(Long id, int level) throws SQLException {
+    public static void setLevel(long id, int level) throws SQLException {
         setDBColumnAsInt(id, "Level", level);
     }
 
-    public static void setXp(Long id, Long xp) throws SQLException {
+    public static void setXp(long id, long xp) throws SQLException {
         setDBColumnAsLong(id, "XP", xp);
     }
 
-    private static void setUsername(Long id, String username) throws SQLException {
+    private static void setUsername(long id, String username) throws SQLException {
         setDBColumnAsString(id, "Username", username);
     }
 
-    public static void setBotAuth(Long id, Boolean mode) throws SQLException {
+    public static void setBotAuth(long id, Boolean mode) throws SQLException {
         setDBColumnAsBool(id, "BotAuth", mode);
     }
 
-    public static void incrementLevel(Long id) throws SQLException {
+    public static void incrementLevel(long id) throws SQLException {
         setDBColumnAsInt(id, "Level", getDBColumnAsInt(id, "Level") + 1);
     }
 
-    public static void changeCredits(Long id, Long change) throws SQLException {
+    public static void changeCredits(long id, long change) throws SQLException {
         setDBColumnAsLong(id, "Credits", getDBColumnAsLong(id, "Credits") + change);
     }
 
-    public static void changeXP(Long id, Long change) throws SQLException {
+    public static void changeXP(long id, long change) throws SQLException {
         setDBColumnAsLong(id, "XP", getDBColumnAsLong(id, "XP") + change);
     }
 
