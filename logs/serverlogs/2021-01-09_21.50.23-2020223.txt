@@ -1,0 +1,6 @@
+Opening log at 2021-01-09_21.50.23
+--SERVER INFO--
+SERVER ID: 2020223
+--LOG--
+[2021-01-09 21:50:23] [SERVER] [INFO] This is a test!
+[2021-01-09 21:50:23] [SERVER] [INFO] This is a test! 2
