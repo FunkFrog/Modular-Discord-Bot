@@ -28,4 +28,18 @@ public class ServerData {
         statement.execute();
     }
 
+    public static ResultSet getSubscribedServers(String feed) throws SQLException {
+        PreparedStatement statement = Database.database.prepareStatement("SELECT * FROM ENABLEDRSS WHERE RSSFEED = ?");
+        statement.setString(1, feed);
+        ResultSet resultSet = statement.executeQuery();
+        resultSet.next();
+        return resultSet;
+    }
+    public static long getLastAccessed(long id) throws SQLException {
+        PreparedStatement statement = Database.database.prepareStatement("SELECT * FROM SERVERDATA WHERE ID = ?");
+        statement.setLong(1, id);
+        ResultSet resultSet = statement.executeQuery();
+        resultSet.next();
+        return resultSet.getLong(1);
+    }
 }

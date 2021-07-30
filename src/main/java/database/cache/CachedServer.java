@@ -31,4 +31,12 @@ public class CachedServer {
     public void setBlacklistedTotal(int blacklistedTotal) {
         this.blacklistedTotal = blacklistedTotal;
     }
+
+    public long getID() {
+        return ID;
+    }
+
+    public boolean isCached() {
+        return cachedSuccessfully;
+    }
 }

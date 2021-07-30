@@ -3,6 +3,7 @@ DROP TABLE IF EXISTS serverData;
 CREATE TABLE serverData
 (
     ID                                    BIGINT  NOT NULL PRIMARY KEY,
+    TimestampLastAccessed                 BIGINT  NOT NULL,
     BlacklistedTotal                      BIGINT  NOT NULL,
     DevModuleEnabled                      BOOLEAN NOT NULL,
     EconModuleEnabled                     BOOLEAN NOT NULL,

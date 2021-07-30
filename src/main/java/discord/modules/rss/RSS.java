@@ -20,6 +20,6 @@ public class RSS {
 
     public static void initializeRSS() {
         lastCheckTimeSeconds = LocalDateTime.now().getSecond();
-
+        Scheduler.startScheduledRefresh(10);
     }
 }

@@ -70,6 +70,6 @@ public class MessageListener {
         }
 
         public static long bonusCredits(int level) {
-            return level * 100 + 100;
+            return level * 100L + 100;
         }
     }

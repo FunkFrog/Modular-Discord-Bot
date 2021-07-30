@@ -39,6 +39,7 @@ public class Database {
             runSchema("/ServerDataSchema.sql");
             runSchema("/UserDataSchema.sql");
             runSchema("/PerServerDataSchema.sql");
+            runSchema("/EnabledRSS.sql");
         } catch(SQLException e) {
             e.printStackTrace();
         }
