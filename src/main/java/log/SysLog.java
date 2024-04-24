@@ -18,6 +18,7 @@ public class SysLog {
         checkDir();
         bootTime = fileDtf.format(LocalDateTime.now());
         openLog("logs/" + bootTime + ".log");
+
     }
 
     private static void checkDir() {

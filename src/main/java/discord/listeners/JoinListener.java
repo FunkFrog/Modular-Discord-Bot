@@ -2,18 +2,25 @@ package discord.listeners;
 
 import database.UserData;
 import log.SysLog;
+import org.javacord.api.entity.message.embed.EmbedBuilder;
 import org.javacord.api.entity.user.User;
+import util.EmbedBuilders;
 import util.Init;
 
 import java.sql.SQLException;
 
-class JoinListener {
-    //todo make this toggleable per server
-    JoinListener() {
+public class JoinListener {
+    public static void init() {
         Init.api.addServerMemberJoinListener(join -> addUserData(join.getUser()));
+//        Init.api.addMessageCreateListener(messageCreateEvent -> {
+//           if (messageCreateEvent.getChannel() == Init.botChannel && !messageCreateEvent.getMessageAuthor().isBotUser()) {
+//               System.out.println("Message sent");
+//               messageCreateEvent.getChannel().sendMessage("oog");
+//           }
+//        });
     }
 
-    private void addUserData(User user) {
+    private static void addUserData(User user) {
         try {
             if (!UserData.userExists(user.getId())) {
                 UserData.addUser(user.getId());
@@ -29,11 +36,11 @@ class JoinListener {
         }
     }
 
-    private void welcomeNew(User user) {
-        //todo Send welcome message
+    private static void welcomeNew(User user) {
+        Init.welcomeChannel.sendMessage(EmbedBuilders.welcomeEmbed(user));
     }
 
-    private void welcomeBack(User user) {
+    private static void welcomeBack(User user) {
         //todo Send welcome back message
     }
 }

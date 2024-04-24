@@ -25,25 +25,26 @@
             <id>jitpack.io</id>
             <url>https://jitpack.io</url>
         </repository>
+        <repository>
+            <id>graalvm-repo</id>
+            <url>https://repo.graalvm.org/maven/</url>
+        </repository>
     </repositories>
 
     <dependencies>
         <dependency>
             <groupId>org.javacord</groupId>
             <artifactId>javacord</artifactId>
-            <version>3.3.2</version>
+            <version>3.8.0</version>
             <type>pom</type>
         </dependency>
-        <!-- The core module -->
         <dependency>
             <groupId>de.btobastian.sdcf4j</groupId>
             <artifactId>sdcf4j-core</artifactId>
             <version>1.0.10</version>
         </dependency>
-        <!-- The module for your preferred lib -->
         <dependency>
             <groupId>de.btobastian.sdcf4j</groupId>
-            <!-- Possible artifact ids: sdcf4j-javacord, sdcf4j-jda3, sdcf4j-discord4j -->
             <artifactId>sdcf4j-javacord</artifactId>
             <version>1.0.10</version>
         </dependency>
@@ -51,13 +52,40 @@
         <dependency>
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
-            <version>1.4.200</version>
+            <version>2.2.224</version>
         </dependency>
 
         <dependency>
             <groupId>com.rometools</groupId>
             <artifactId>rome</artifactId>
-            <version> 1.16.0</version>
+            <version>2.1.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient</artifactId>
+            <version>4.5.14</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-core</artifactId>
+            <version>2.17.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-annotations</artifactId>
+            <version>2.17.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>2.17.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.datatype</groupId>
+            <artifactId>jackson-datatype-jsr310</artifactId>
+            <version>2.17.0</version>
         </dependency>
     </dependencies>
 

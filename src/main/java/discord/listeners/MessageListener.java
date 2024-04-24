@@ -9,7 +9,6 @@ import util.Init;
 import java.sql.SQLException;
 
 public class MessageListener {
-        //todo make this toggleable per server
         public static void startLevelListener() {
             Init.api.addMessageCreateListener(message -> {
                 User user = message.getMessageAuthor().asUser().orElseThrow(NullPointerException::new);
@@ -43,10 +42,10 @@ public class MessageListener {
                         m.getServerTextChannel().ifPresent(channel -> {
                             if (level == 0) {
                                 //todo add first level up message
-                                user.sendMessage();
+                                //user.sendMessage();
                             } else {
                                 //todo add level up banner
-                                channel.sendMessage();
+                                //channel.sendMessage();
                             }
                         });
                         SysLog.out(user + " leveled up to level " + (level + 1));

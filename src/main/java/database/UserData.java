@@ -32,7 +32,7 @@ public class UserData {
 
     public static void addUser(long id) throws SQLException {
         PreparedStatement statement = Database.database.prepareStatement("INSERT INTO USERDATA " +
-                "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+                "VALUES(?, ?, ?, ?, ?, ?, ?, ?)");
         User user = Init.api.getCachedUserById(id).orElseThrow(NullPointerException::new);
         statement.setLong(1, id); // Discord ID
         statement.setString(2, "PLACEHOLDER_USERNAME"); // Discord Username
